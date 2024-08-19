@@ -15,4 +15,9 @@ export class CallService {
   {
      return this._HttpClient.get(`https://reqres.in/api/users/${id}`)
   }
+  callapi(p:number):Observable<any>
+  {
+     return this._HttpClient.get(`https://reqres.in/api/users?page=${p}`)
+  }
+
 }

@@ -3,6 +3,7 @@ import { Component, ElementRef, ViewChild, viewChild } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { CallService } from '../call.service';
 import { UserComponent } from '../user/user.component';
+import { User } from '../user';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,27 @@ export class HomeComponent {
   useremail!:string
   userimg!:string
   apirespons:any
+  list!:User[]
+  list2!:User[]
+
+  ngOnInit(): void {
+    this._call.callapi(1).subscribe({
+      next:(res)=>{
+        this.list=res.data;
+        console.log(this.list);
+      }
+    });
+
+    this._call.callapi(2).subscribe({
+      next:(r)=>{
+        this.list2 =r.data;
+      }
+    });
+    
+    
+    
+  }
+
   ngAfterViewInit() {
 
     this.hideall();
