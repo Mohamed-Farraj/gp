@@ -4,11 +4,12 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { CallService } from '../call.service';
 import { UserComponent } from '../user/user.component';
 import { User } from '../user';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,UserComponent],
+  imports: [FormsModule,HttpClientModule,UserComponent,CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -18,7 +19,10 @@ export class HomeComponent {
   @ViewChild('no') reject!:ElementRef;
   @ViewChild('yes') accept!:ElementRef;
   @ViewChild('pending') pending!:ElementRef;
+  @ViewChild('cstm') cstm!:ElementRef;
   studentId:string="";
+  isvalid:boolean=false;
+  hiderule:boolean = true;
   userid!:string
   username!:string
   useremail!:string
@@ -26,24 +30,8 @@ export class HomeComponent {
   apirespons:any
   list!:User[]
   list2!:User[]
+  alertmsg!:string
 
-  ngOnInit(): void {
-    this._call.callapi(1).subscribe({
-      next:(res)=>{
-        this.list=res.data;
-        console.log(this.list);
-      }
-    });
-
-    this._call.callapi(2).subscribe({
-      next:(r)=>{
-        this.list2 =r.data;
-      }
-    });
-    
-    
-    
-  }
 
   ngAfterViewInit() {
 
@@ -51,11 +39,23 @@ export class HomeComponent {
 
   }
 
+  checkvalidty(){
+    if(/^\d{14}$/.test(this.studentId))
+    {
+      this.isvalid = true;
+      // this.hiderule = true;
+    }
+    else{
+      this.isvalid = false;
+    }
+  }
+
   hideall()
   {
     this.reject.nativeElement.classList.add('d-none');
     this.accept.nativeElement.classList.add('d-none');
     this.pending.nativeElement.classList.add('d-none');
+    this.cstm.nativeElement.classList.add('d-none');
   }
 
   rejected()
@@ -63,12 +63,14 @@ export class HomeComponent {
     this.reject.nativeElement.classList.remove('d-none');
     this.accept.nativeElement.classList.add('d-none');
     this.pending.nativeElement.classList.add('d-none');
+    this.cstm.nativeElement.classList.add('d-none');
   }
   accepted()
   {
     this.reject.nativeElement.classList.add('d-none');
     this.accept.nativeElement.classList.remove('d-none');
     this.pending.nativeElement.classList.add('d-none');
+    this.cstm.nativeElement.classList.add('d-none');
   }
 
   pended()
@@ -76,6 +78,18 @@ export class HomeComponent {
     this.reject.nativeElement.classList.add('d-none');
     this.accept.nativeElement.classList.add('d-none');
     this.pending.nativeElement.classList.remove('d-none');
+    this.cstm.nativeElement.classList.add('d-none');
+  }
+  cstmed()
+  {
+    this.reject.nativeElement.classList.add('d-none');
+    this.accept.nativeElement.classList.add('d-none');
+    this.pending.nativeElement.classList.add('d-none');
+    this.cstm.nativeElement.classList.remove('d-none');
+  }
+
+  rules(){
+    this.hiderule = !this.hiderule;
   }
 
   ask()
@@ -85,15 +99,25 @@ export class HomeComponent {
       next:(resdata)=>{
         this.apirespons=resdata;
         // this.accepted();
-        this.hideall();
-        console.log(this.apirespons);
-        this.userid = this.apirespons.data.id
-        this.username= this.apirespons.data.first_name +" "+ this.apirespons.data.last_name
-        this.useremail= this.apirespons.data.email
-        this.userimg=this.apirespons.data.avatar
+        console.log(resdata);
+        if (this.apirespons === "لم يستدل عليه") {
+          this.pended()
+        }
+        else if(this.apirespons === "Not Found")
+        {
+          this.rejected()
+        }
+        else if(this.apirespons === "مقبول")
+        {
+          this.accepted()
+        }
+        else{
+          this.alertmsg = this.apirespons
+          this.cstmed()
+        }
       },
       error:(errdata)=>{
-        this.userid=""
+        console.log(errdata);
         this.rejected();
       }
     })

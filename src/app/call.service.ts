@@ -8,16 +8,13 @@ import { Observable } from 'rxjs';
 export class CallService {
 
   constructor(private _HttpClient:HttpClient ) { }
+  baseurl:string="http://localhost:8090"
 
   resutl:any;
 
   callidapi(id:string):Observable<any>
   {
-     return this._HttpClient.get(`https://reqres.in/api/users/${id}`)
-  }
-  callapi(p:number):Observable<any>
-  {
-     return this._HttpClient.get(`https://reqres.in/api/users?page=${p}`)
+     return this._HttpClient.get(`http://localhost:8090/acceptance-status/${id}`,{ responseType: 'text' })
   }
 
 }
