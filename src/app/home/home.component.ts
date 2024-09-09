@@ -23,15 +23,11 @@ export class HomeComponent {
   studentId:string="";
   isvalid:boolean=false;
   hiderule:boolean = true;
-  userid!:string
-  username!:string
-  useremail!:string
+  userN!:string
   userimg!:string
   apirespons:any
-  list!:User[]
-  list2!:User[]
   alertmsg!:string
-
+  isRejectd:boolean = false
 
   ngAfterViewInit() {
 
@@ -98,21 +94,28 @@ export class HomeComponent {
     this._call.callidapi(this.studentId).subscribe({
       next:(resdata)=>{
         this.apirespons=resdata;
+        this.userN = this.apirespons?.name
         // this.accepted();
         console.log(resdata);
-        if (this.apirespons === "لم يستدل عليه") {
+        if (this.apirespons.acceptanceStatus === "لم يستدل عليه") {
           this.pended()
         }
-        else if(this.apirespons === "Not Found")
+        else if(this.apirespons.message === "Student Not Found")
         {
           this.rejected()
+          this.isRejectd = false
         }
-        else if(this.apirespons === "مقبول")
+        else if(this.apirespons.acceptanceStatus === "مرفوض")
+        {
+          this.rejected()
+          this.isRejectd = true
+        }
+        else if(this.apirespons.acceptanceStatus === "مقبول")
         {
           this.accepted()
         }
         else{
-          this.alertmsg = this.apirespons
+          this.alertmsg = this.apirespons.acceptanceStatus
           this.cstmed()
         }
       },

@@ -14,7 +14,7 @@ export class CallService {
 
   callidapi(id:string):Observable<any>
   {
-     return this._HttpClient.get(`http://localhost:8090/acceptance-status/${id}`,{ responseType: 'text' })
+     return this._HttpClient.get(`http://localhost:8090/acceptance-status/${id}`)
   }
 
 }
