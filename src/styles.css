@@ -1,0 +1,12 @@
+.bg-main{
+    background: #235787;
+}
+.btn-main{
+    background-color: #1a4870;
+    color: rgb(253, 253, 253);
+}
+.btn-main:hover{
+    background-color:#38668f ;
+    color: rgb(253, 253, 253);
+
+}
