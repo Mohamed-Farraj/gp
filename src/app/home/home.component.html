@@ -1,9 +1,9 @@
 <div
-  class="container-fluid bg-body-secondary p-2 d-flex flex-column justify-content-start align-items-center"
-  style="min-height: 6.2rem"
+  class="container-fluid bg-body-secondary mt-5 pt-5 d-flex flex-column justify-content-start align-items-center"
+  
 >
-  <div class="container my-3 bg-light">
-    <div class="title p-4 border-bottom">
+  <div class="container my-3 bg-light rounded-4">
+    <div class="title h5 fw-bolder p-4 border-bottom">
       قم بادخال الرقم القومي المراد الاستعلام عنه
     </div>
     <div class="form border-bottom p-4">
@@ -23,7 +23,7 @@
         </button>
       }
       @else {
-        <button (click)="ask()" type="button" class="btn btn-primary px-5 mt-3">
+        <button (click)="ask()" type="button" class="btn btn-main px-5 mt-3">
         استعلام
       </button>
     }
@@ -83,4 +83,5 @@
     
       
     </div>
+    
   </div>
