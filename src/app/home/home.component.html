@@ -3,28 +3,30 @@
   
 >
   <div class="container my-3 bg-light rounded-4">
-    <div class="title h5 fw-bolder p-4 border-bottom">
-      قم بادخال الرقم القومي المراد الاستعلام عنه
+    <div class="title p-4 border-bottom ">
+      <p class="text-center fw-bold mb-5 h4 font">الاستـعـلام عـن القـبول في المـدن الجـامعيه </p>
+
+       <p class="fs-4 fw-medium  font"> قـم بادخال الـرقم الـقومي المـراد الاستـعـلام عنه لعام 2024-2025  </p>  
     </div>
-    <div class="form border-bottom p-4">
+    <div class="form font border-bottom  p-4">
       <input
         [(ngModel)]="studentId"
-        class="form-control form-control-lg"
+        class="form-control form-control-lg "
         type="text"
-        placeholder="**********3030"
+        placeholder="الرقـم الـقومـي"
         aria-label=".form-control-lg example"
         (input)="checkvalidty()"
         (keydown.enter)="ask()"
         maxlength="14"
       />
       @if (!isvalid) {
-        <button (click)="rules()" type="button" class="btn btn-secondary px-5 mt-3" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover">
-          استعلام
+        <button (click)="rules()" type="button" class="btn btn-secondary px-5 mt-3 " data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover">
+          استـعـلام
         </button>
       }
       @else {
         <button (click)="ask()" type="button" class="btn btn-main px-5 mt-3">
-        استعلام
+        اسـتعـلام
       </button>
     }
     <div [class.d-none]="hiderule" [class.alert-success]="isvalid" [class.alert-info]="!isvalid" class="alert mt-4" role="alert">
@@ -83,5 +85,8 @@
     
       
     </div>
-    
+    <div class="font">
+      <p class=" fw-medium text-main">     <span class="text-danger mx-1">  جميع الحقوق محفوظة  <i class="fa-solid fa-copyright"></i>   </span>  لمركز الحساب العلمي   <span class="px-2">ـ</span>جامعة حلوان </p>
+
+    </div>
   </div>
