@@ -1,5 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Beiruti:wght@200..900&display=swap');
+
+.font{
+    font-family: "Beiruti", sans-serif;
+    font-optical-sizing: auto;
+}
 .bg-main{
     background: #235787;
+}
+.text-main{
+    color: #235787;
 }
 .btn-main{
     background-color: #1a4870;
